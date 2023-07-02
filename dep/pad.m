@@ -1,23 +1,9 @@
-clc; clear; clear path;
-addpath ../funcs/.
+clear; clc;
+% M_p = e^(-frac(pi * xi,sqrt(1-xi^2)))
+xi = 0.690108;
+M_p = exp(-(pi * xi) / (sqrt(1-xi^2)) )*100
 
-z = 0.1;
-w = 1000;
-s = tf([1 0],[1]);
-Gs = (2*z*w*s+w^2)/(s^2*(s^2+2*z*w+w^2));
+syms xi
 
-Gain = 1;
-P= 1;
-I = 0;
-D = 0;
-N = 0;
-
-Cs = pidGen(P,I,D,N,Gain);
-
-tFuncCL = Gs*Cs/(1+Gs*Cs);
-
-% clf;
-% step(tFuncCL,10);
-
-clf;
-nyquist(Gs)
+damp = exp(-(pi * xi) / (sqrt(1-xi^2)) )*100-4.99;
+x = double(solve(damp,xi))
